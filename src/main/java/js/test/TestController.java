@@ -1,5 +1,6 @@
 package js.test;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,11 @@ public class TestController {
 
     public TestController(TestService service) {
         this.service = service;
+    }
+
+    @GetMapping("/")
+    String getIndex() {
+        return "Hello index";
     }
 
     @GetMapping("/test/ok")
@@ -44,10 +50,9 @@ public class TestController {
         return "Awoke from sleeping " + Integer.toString(seconds) + " seconds";
     }
 
-    @GetMapping("/test/call-crm")
-    String getUrl() throws MalformedURLException {
-        String url = "https://crm-test.trendtours.de/api/hauptbus";
-        return this.service.httpCall(url);
+    @GetMapping("/test/properties")
+    String getProperties() {
+        return this.service.getProperties();
     }
 
 }

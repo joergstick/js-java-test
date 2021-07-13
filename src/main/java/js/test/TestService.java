@@ -2,6 +2,7 @@ package js.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,9 @@ import java.net.MalformedURLException;
 
 @Service
 public class TestService {
+
+    @Value("${DATABASE_FAKE_URL}")
+    private String dbUrl;
 
     Logger logger = LoggerFactory.getLogger(TestService.class);
 
@@ -51,4 +55,9 @@ public class TestService {
         ResponseEntity<String> responseEntity = rest.exchange(url, HttpMethod.GET, requestEntity, String.class);
         return responseEntity.getBody();
     }
+
+    public String getProperties()  {
+        return "DATABASE_FAKE_URL: " + dbUrl;
+    }
+
 }
